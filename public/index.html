@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AgriConnect — Smart Contract Farming & Agritech Management Portal connecting Indian cultivators with corporate agribusinesses through assured pre-harvest contracts.">
+    <title>AgriConnect — Smart Contract Farming & Agritech Management Portal</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Modern Agritech CSS System -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <!-- 1. Government MSP Live Ticker -->
+    <div class="msp-ticker-wrapper">
+        <div class="container-wide msp-ticker-container">
+            <span class="msp-badge">Official MSP 2026</span>
+            <div class="msp-ticker-track">
+                <div class="msp-item"><span class="crop-title">🌾 Sharbati Wheat:</span> <span class="price">₹2,450 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🍚 Pusa 1121 Basmati:</span> <span class="price">₹4,150 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🥥 Pollachi Coconut:</span> <span class="price">₹3,850 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🧅 Nashik Red Onion:</span> <span class="price">₹2,600 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌱 Shankar-6 Cotton:</span> <span class="price">₹7,200 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🫘 Yellow Soybean:</span> <span class="price">₹4,800 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌽 Hybrid Maize:</span> <span class="price">₹2,090 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌼 Mustard Seed:</span> <span class="price">₹5,650 / Qtl</span></div>
+                <!-- Duplicate for infinite seamless marquee loop -->
+                <div class="msp-item"><span class="crop-title">🌾 Sharbati Wheat:</span> <span class="price">₹2,450 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🥥 Pollachi Coconut:</span> <span class="price">₹3,850 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🧅 Nashik Red Onion:</span> <span class="price">₹2,600 / Qtl</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Main Navigation Bar -->
+    <header class="site-header">
+        <div class="container navbar">
+            <a href="index.html" class="brand-logo" id="brand-home-link">
+                <div class="brand-icon">🌱</div>
+                <span>AgriConnect</span>
+                <span class="brand-tag">Stage 1</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="contracts.html" class="nav-link">Procurement Tenders</a></li>
+                <li><a href="estimator.html" class="nav-link">Yield & Profit Calculator</a></li>
+                <li><a href="register.html" class="nav-link">Farmer / Buyer Register</a></li>
+                <li class="nav-actions-mobile">
+                    <a href="../auth/login.php" class="btn btn-secondary btn-block">Sign In to Portal</a>
+                    <a href="register.html" class="btn btn-primary btn-block">Register Now</a>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="../auth/login.php" class="btn btn-secondary btn-sm" id="btn-login-nav">Sign In</a>
+                <a href="register.html" class="btn btn-primary btn-sm" id="btn-register-nav">Get Started</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- 3. Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div style="max-width: 780px;">
+                    <div class="feature-pill">
+                        <span>🚀 Next-Gen Digital Agriculture</span>
+                        <span>•</span>
+                        <span>Pre-Harvest Price Locks</span>
+                    </div>
+                    <h1>Bridging the Divide Between Cultivators & Agribusinesses</h1>
+                    <p>
+                        AgriConnect establishes legally binding digital contract farming agreements, protecting rural farmers from volatile mandi price crashes while securing continuous, high-grade commodity supply for food processors.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="contracts.html" class="btn btn-accent btn-lg" id="hero-btn-tenders">Browse Live Tenders</a>
+                        <a href="estimator.html" class="btn btn-outline btn-lg" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" id="hero-btn-calc">Calculate Farm Revenue</a>
+                        <a href="../auth/login.php" class="btn btn-secondary btn-lg" id="hero-btn-login">Open Dynamic Portal (PHP)</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Impact Statistics Counters -->
+        <section class="section" style="padding-top: 2rem; padding-bottom: 2rem; margin-top: -2rem; position: relative; z-index: 20;">
+            <div class="container">
+                <div class="grid grid-4">
+                    <div class="stat-card stat-success">
+                        <div>
+                            <div class="stat-label">Enrolled Farmers</div>
+                            <div class="stat-value">4,280+</div>
+                            <div class="stat-subtext">Across Punjab, Haryana, Gujarat</div>
+                        </div>
+                        <div class="stat-icon">👨‍🌾</div>
+                    </div>
+                    <div class="stat-card stat-accent">
+                        <div>
+                            <div class="stat-label">Procurement Value</div>
+                            <div class="stat-value">₹18.4 Cr</div>
+                            <div class="stat-subtext">Guaranteed contract volume</div>
+                        </div>
+                        <div class="stat-icon">💰</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>
+                            <div class="stat-label">Corporate Buyers</div>
+                            <div class="stat-value">36</div>
+                            <div class="stat-subtext">Verified FMCG & export houses</div>
+                        </div>
+                        <div class="stat-icon">🏢</div>
+                    </div>
+                    <div class="stat-card stat-warning">
+                        <div>
+                            <div class="stat-label">Settlement Rate</div>
+                            <div class="stat-value">99.2%</div>
+                            <div class="stat-subtext">Direct bank payment release</div>
+                        </div>
+                        <div class="stat-icon">⚡</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Core Platform Pillars -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="text-center" style="max-width: 650px; margin: 0 auto 3rem auto;">
+                    <span class="crop-tag">Why AgriConnect</span>
+                    <h2 style="margin-top: 0.5rem;">Engineered for Agronomic Certainty & Institutional Trust</h2>
+                    <p class="text-muted">Eliminate the five layers of exploitative middle-traders and guarantee your farm revenue before seed germination.</p>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div style="font-size: 2.2rem; margin-bottom: 1rem;">📜</div>
+                        <h3>Pre-Harvest Contract Agreements</h3>
+                        <p class="text-muted">
+                            Lock in guaranteed prices per quintal prior to planting season. Never suffer distress sales during post-harvest mandi supply gluts.
+                        </p>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">
+                            <li>Fixed & index-linked pricing</li>
+                            <li>Formal quality grading specifications</li>
+                            <li>Legally enforced dispute mechanisms</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div style="font-size: 2.2rem; margin-bottom: 1rem;">🧮</div>
+                        <h3>Scientific Yield & Profit Modeling</h3>
+                        <p class="text-muted">
+                            Our interactive econometric calculator integrates real-time seed costs, fertilizer schedules, and labor expenditure to forecast exact net profit.
+                        </p>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">
+                            <li>Benchmarked for 6 staple Indian crops</li>
+                            <li>Conventional vs Organic premium mode</li>
+                            <li>Immediate ROI & margin percentages</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div style="font-size: 2.2rem; margin-bottom: 1rem;">🤝</div>
+                        <h3>Direct Corporate Procurement</h3>
+                        <p class="text-muted">
+                            FMCG brands, agro-exporters, and millers post explicit grain varieties, moisture thresholds, and tonnage requirements with zero middlemen fees.
+                        </p>
+                        <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted); margin-top: 1rem;">
+                            <li>Direct warehouse delivery point</li>
+                            <li>Transparent digital bid submissions</li>
+                            <li>Verified buyer credibility scores</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Featured Tenders Preview -->
+        <section class="section">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <span class="crop-tag">Active Procurements</span>
+                        <h2 style="margin-top: 0.5rem;">Featured Institutional Demands</h2>
+                        <p class="text-muted">High-volume corporate contracts open for farmer bid submission.</p>
+                    </div>
+                    <a href="contracts.html" class="btn btn-outline">Explore All 40+ Tenders &rarr;</a>
+                </div>
+
+                <div class="grid grid-3">
+                    <!-- Tender 1 -->
+                    <div class="contract-card">
+                        <div>
+                            <div class="contract-header">
+                                <div>
+                                    <span class="crop-tag">Cereals</span>
+                                    <h3 style="margin-top: 0.35rem;">Wheat (Sharbati A-Grade)</h3>
+                                </div>
+                                <span class="badge badge-open">Open</span>
+                            </div>
+                            <div class="contract-price">₹2,450 <span>/ Quintal</span></div>
+                            <div class="contract-meta">
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Total Volume</span>
+                                    <span class="meta-value">500 Quintals</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Buyer Company</span>
+                                    <span class="meta-value">ITC Agri-Business</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Delivery Hub</span>
+                                    <span class="meta-value">Khanna Terminal, PB</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Closing Date</span>
+                                    <span class="meta-value">15 Dec 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="contracts.html" class="btn btn-primary btn-block">View Tender & Apply</a>
+                    </div>
+
+                    <!-- Tender 2 -->
+                    <div class="contract-card">
+                        <div>
+                            <div class="contract-header">
+                                <div>
+                                    <span class="crop-tag">Export Grain</span>
+                                    <h3 style="margin-top: 0.35rem;">Pusa 1121 Basmati Rice</h3>
+                                </div>
+                                <span class="badge badge-open">Open</span>
+                            </div>
+                            <div class="contract-price">₹4,150 <span>/ Quintal</span></div>
+                            <div class="contract-meta">
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Total Volume</span>
+                                    <span class="meta-value">800 Quintals</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Buyer Company</span>
+                                    <span class="meta-value">Kisan Fresh Logistics</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Delivery Hub</span>
+                                    <span class="meta-value">Karnal Export Hub, HR</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Closing Date</span>
+                                    <span class="meta-value">30 Nov 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="contracts.html" class="btn btn-primary btn-block">View Tender & Apply</a>
+                    </div>
+
+                    <!-- Tender 3 -->
+                    <div class="contract-card">
+                        <div>
+                            <div class="contract-header">
+                                <div>
+                                    <span class="crop-tag">Cash Crops</span>
+                                    <h3 style="margin-top: 0.35rem;">Shankar-6 Organic Cotton</h3>
+                                </div>
+                                <span class="badge badge-open">Open</span>
+                            </div>
+                            <div class="contract-price">₹7,200 <span>/ Quintal</span></div>
+                            <div class="contract-meta">
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Total Volume</span>
+                                    <span class="meta-value">350 Quintals</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Buyer Company</span>
+                                    <span class="meta-value">Gujarat Agro-Textiles</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Delivery Hub</span>
+                                    <span class="meta-value">Rajkot Mandi, GJ</span>
+                                </div>
+                                <div class="contract-meta-item">
+                                    <span class="meta-label">Closing Date</span>
+                                    <span class="meta-value">20 Dec 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="contracts.html" class="btn btn-primary btn-block">View Tender & Apply</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. How It Works (Workflow Breakdown) -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="text-center" style="max-width: 600px; margin: 0 auto 3rem auto;">
+                    <span class="crop-tag">Workflow Lifecycle</span>
+                    <h2 style="margin-top: 0.5rem;">How AgriConnect Operates</h2>
+                    <p class="text-muted">A seamless 4-step digital journey from tender discovery to bank account settlement.</p>
+                </div>
+
+                <div class="grid grid-4">
+                    <div class="card" style="text-align: center;">
+                        <div class="step-number" style="margin: 0 auto 1rem auto; background: var(--primary); color: #fff;">1</div>
+                        <h4 style="margin-bottom: 0.5rem;">Demand Posting</h4>
+                        <p class="text-muted" style="font-size: 0.875rem;">Corporate agribusinesses publish required grain varieties, volumes, moisture specs, and fixed offered prices.</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div class="step-number" style="margin: 0 auto 1rem auto; background: var(--primary); color: #fff;">2</div>
+                        <h4 style="margin-bottom: 0.5rem;">Farmer Application</h4>
+                        <p class="text-muted" style="font-size: 0.875rem;">Cultivators inspect specifications, calculate projected returns, and submit commitments for partial or full tonnage.</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div class="step-number" style="margin: 0 auto 1rem auto; background: var(--primary); color: #fff;">3</div>
+                        <h4 style="margin-bottom: 0.5rem;">Digital Review</h4>
+                        <p class="text-muted" style="font-size: 0.875rem;">Buyers evaluate land size, soil survey records, and approve bids to execute enforceable bilateral agreements.</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div class="step-number" style="margin: 0 auto 1rem auto; background: var(--primary); color: #fff;">4</div>
+                        <h4 style="margin-bottom: 0.5rem;">Harvest & Payout</h4>
+                        <p class="text-muted" style="font-size: 0.875rem;">Produce delivered to certified logistical checkpoints triggers instant electronic direct bank transfer to farmers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Evaluator / Academic Banner -->
+        <section class="section" style="padding-top: 3rem; padding-bottom: 3rem;">
+            <div class="container">
+                <div class="card" style="background: linear-gradient(135deg, #0e3d13, #1e293b); color: #fff; padding: 2.5rem; border: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+                        <div>
+                            <span class="badge" style="background: var(--accent); color: #000; font-weight: 700; margin-bottom: 0.75rem;">Academic Project Milestone Architecture</span>
+                            <h3 style="color: #ffffff; margin-bottom: 0.5rem;">Ready to Evaluate Dynamic Stage 2 (PHP 8 + MySQL)?</h3>
+                            <p style="color: #cbd5e1; max-width: 650px; margin-bottom: 0;">
+                                Test the live normalized database (3NF), session management, SQL injection defense, and role-based portals for Farmers and Corporate Buyers.
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <a href="../auth/login.php" class="btn btn-accent btn-lg">Launch PHP Portal</a>
+                            <a href="../docs/Review_01_Presentation.md" class="btn btn-secondary btn-lg">View Stage 1 Slides</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="brand-logo" style="color: #ffffff; margin-bottom: 1rem;">
+                        <div class="brand-icon">🌱</div>
+                        <span>AgriConnect</span>
+                    </div>
+                    <p style="color: #94a3b8; max-width: 320px;">
+                        Enterprise contract farming portal revolutionizing agricultural supply chains through digital transparency and guaranteed price security.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Stage 1 Pages</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Landing Page</a></li>
+                        <li><a href="contracts.html">Procurement Listings</a></li>
+                        <li><a href="estimator.html">Yield & Cost Calculator</a></li>
+                        <li><a href="register.html">Farmer/Buyer Registration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Stage 2 Portals</h4>
+                    <ul class="footer-links">
+                        <li><a href="../auth/login.php">Authentication Gateway</a></li>
+                        <li><a href="../farmer/dashboard.php">Farmer Workspace</a></li>
+                        <li><a href="../buyer/dashboard.php">Agribusiness Tender Desk</a></li>
+                        <li><a href="../auth/register.php">Backend Registration</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Academic Artifacts</h4>
+                    <ul class="footer-links">
+                        <li><a href="../docs/Review_01_Presentation.md">Review 01 Slide Deck</a></li>
+                        <li><a href="../docs/Review_02_Presentation.md">Review 02 Slide Deck</a></li>
+                        <li><a href="../docs/Viva_Preparation_Guide.md">Viva Preparation Guide</a></li>
+                        <li><a href="../README.md">Setup & Installation Manual</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>&copy; 2026 AgriConnect. Smart Contract Farming Portal. Academic Evaluation Milestone.</div>
+                <div style="display: flex; gap: 1rem;">
+                    <span>HTML5</span> • <span>Modular ES6</span> • <span>Vanilla CSS</span> • <span>PHP 8 PDO</span> • <span>MySQL 3NF</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.getElementById('mobileToggle');
+            const menu = document.getElementById('navMenu');
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => menu.classList.toggle('is-active'));
+            }
+        });
+    </script>
+</body>
+</html>

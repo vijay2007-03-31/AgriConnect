@@ -1,0 +1,13 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Preview Database & Logs
+.preview.db
+*.log
+__pycache__/
+*.pyc
+
+# IDE / Editor Settings
+.vscode/
+.idea/

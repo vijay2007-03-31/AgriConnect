@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Crop Yield, Cultivation Cost, and Net Farm Revenue Calculator by AgriConnect. Model expected output across 6 staple crops with live MSP benchmarks.">
+    <title>Yield & Net Profit Calculator — AgriConnect</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .preset-badge {
+            cursor: pointer;
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-full);
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+        .preset-badge:hover {
+            background: var(--primary-subtle);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        .slider-control {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--border);
+            outline: none;
+            accent-color: var(--primary);
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MSP Ticker Bar -->
+    <div class="msp-ticker-wrapper">
+        <div class="container-wide msp-ticker-container">
+            <span class="msp-badge">Official MSP 2026</span>
+            <div class="msp-ticker-track">
+                <div class="msp-item"><span class="crop-title">🌾 Sharbati Wheat:</span> <span class="price">₹2,450 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🍚 Pusa 1121 Basmati:</span> <span class="price">₹4,150 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🥥 Pollachi Coconut:</span> <span class="price">₹3,850 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🧅 Nashik Red Onion:</span> <span class="price">₹2,600 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌱 Shankar-6 Cotton:</span> <span class="price">₹7,200 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🫘 Yellow Soybean:</span> <span class="price">₹4,800 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌽 Hybrid Maize:</span> <span class="price">₹2,090 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌼 Mustard Seed:</span> <span class="price">₹5,650 / Qtl</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container navbar">
+            <a href="index.html" class="brand-logo">
+                <div class="brand-icon">🌱</div>
+                <span>AgriConnect</span>
+                <span class="brand-tag">Stage 1</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="contracts.html" class="nav-link">Procurement Tenders</a></li>
+                <li><a href="estimator.html" class="nav-link active">Yield & Profit Calculator</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+                <li class="nav-actions-mobile">
+                    <a href="../auth/login.php" class="btn btn-secondary btn-block">Sign In</a>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="../auth/login.php" class="btn btn-secondary btn-sm">Sign In</a>
+                <a href="contracts.html" class="btn btn-primary btn-sm">View Contracts</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <!-- Header Section -->
+            <div style="margin-bottom: 2.5rem; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <span class="crop-tag">Agronomic & Econometric Engine</span>
+                <h1 style="margin-top: 0.5rem; margin-bottom: 0.75rem;">Interactive Yield, Production Cost & Net Profit Calculator</h1>
+                <p class="text-muted">
+                    Simulate your farm harvest economics before committing land. Calculate expected gross tonnage, inputs breakdown, projected revenue, and net profit based on official Government MSP benchmarks.
+                </p>
+            </div>
+
+            <div class="grid grid-2" style="gap: 2.5rem; align-items: start;">
+                <!-- Calculator Input Parameters Card -->
+                <div class="calculator-card">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
+                        <h3 style="margin: 0;">Cultivation Parameters</h3>
+                        <span class="badge badge-open" id="crop-season-badge">Rabi Crop (130 Days)</span>
+                    </div>
+
+                    <!-- Crop Selection -->
+                    <div class="form-group">
+                        <label class="form-label" for="calc-crop">Select Target Crop <span class="required">*</span></label>
+                        <select id="calc-crop" class="form-control">
+                            <option value="wheat" selected>Wheat / Gehun (Grade A Sharbati)</option>
+                            <option value="rice">Paddy / Basmati Rice (Pusa 1121)</option>
+                            <option value="coconut">Coconut / Thengai (Pollachi Tall)</option>
+                            <option value="onion">Red Onion / Pyaz / Vengayam (Nashik Red)</option>
+                            <option value="cotton">Cotton / Kapas (Shankar-6)</option>
+                            <option value="soybean">Yellow Soybean (JS-335 Non-GMO)</option>
+                            <option value="maize">Hybrid Maize / Corn (Kharif/Rabi)</option>
+                            <option value="mustard">Mustard Seed / Sarson (Pusa Bold)</option>
+                        </select>
+                        <span class="input-hint" id="crop-irrigation-note">Irrigation: Moderate (Canal/Tube well) | Benchmark: 18.5 Qtl/Acre</span>
+                    </div>
+
+                    <!-- Land Size in Acres -->
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <label class="form-label" for="calc-acres">Land Under Cultivation (Acres) <span class="required">*</span></label>
+                            <div style="display: flex; gap: 0.4rem;">
+                                <button type="button" class="preset-badge land-preset-btn" data-acres="2">2 Ac</button>
+                                <button type="button" class="preset-badge land-preset-btn" data-acres="5">5 Ac</button>
+                                <button type="button" class="preset-badge land-preset-btn" data-acres="10">10 Ac</button>
+                                <button type="button" class="preset-badge land-preset-btn" data-acres="25">25 Ac</button>
+                            </div>
+                        </div>
+                        <input type="number" id="calc-acres" class="form-control" value="5" min="0.5" max="100" step="0.5">
+                        <input type="range" id="calc-acres-slider" class="slider-control" value="5" min="1" max="50" step="0.5">
+                    </div>
+
+                    <!-- Market / MSP Price per Quintal -->
+                    <div class="form-group">
+                        <label class="form-label" for="calc-price">Offered / Contract Price per Quintal (₹) <span class="required">*</span></label>
+                        <input type="number" id="calc-price" class="form-control" value="2450" min="500" max="25000" step="50">
+                        <span class="input-hint">Prefilled with 2026 Government MSP benchmark. You can adjust according to contract tender offers.</span>
+                    </div>
+
+                    <!-- Farming Practice Type -->
+                    <div class="form-group">
+                        <label class="form-label" for="calc-farming-type">Agronomic Practice & Certification</label>
+                        <select id="calc-farming-type" class="form-control">
+                            <option value="conventional" selected>Standard Conventional Cultivation (Baseline)</option>
+                            <option value="organic">Certified Organic Farming (+25% Premium Price, -8% Yield)</option>
+                            <option value="precision">Precision Smart Irrigation (+15% Yield Boost)</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-alt); border-radius: var(--radius-md); font-size: 0.85rem; color: var(--text-muted);">
+                        💡 <strong>Agronomic Model Note:</strong> Yield baselines derived from ICAR (Indian Council of Agricultural Research) regional state zone averages, factoring standardized seed germination, NPKS fertilization, and diesel/irrigation power schedules.
+                    </div>
+                </div>
+
+                <!-- Live Results KPI Summary Card -->
+                <div>
+                    <div class="calc-summary-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 1rem;">
+                            <div>
+                                <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Financial Projection</span>
+                                <h2 style="color: #ffffff; margin-top: 0.2rem;">Harvest P&L Forecast</h2>
+                            </div>
+                            <span class="badge" style="background: rgba(74, 222, 128, 0.2); color: #4ade80; border: 1px solid #4ade80;">Dynamic Real-Time</span>
+                        </div>
+
+                        <!-- Highlight Net Profit -->
+                        <div style="margin-top: 1.5rem; padding: 1.25rem; background: rgba(0, 0, 0, 0.25); border-radius: var(--radius-lg); border: 1px solid rgba(74, 222, 128, 0.3);">
+                            <div style="font-size: 0.85rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.05em;">Estimated Net Farm Profit</div>
+                            <div class="calc-kpi-val highlight" id="out-profit" style="font-size: 2.6rem;">₹ 1,19,125</div>
+                            <div style="font-size: 0.825rem; color: #94a3b8; margin-top: 0.25rem;">
+                                Net return after deducting seeds, crop nutrition, machinery, and harvest labor.
+                            </div>
+                        </div>
+
+                        <!-- 4 Breakdown KPI Cards -->
+                        <div class="calc-summary-grid">
+                            <div class="calc-kpi">
+                                <div class="calc-kpi-title">Gross Output</div>
+                                <div class="calc-kpi-val" id="out-yield" style="font-size: 1.45rem;">92.5 Quintals</div>
+                            </div>
+                            <div class="calc-kpi">
+                                <div class="calc-kpi-title">Cultivation Cost</div>
+                                <div class="calc-kpi-val" id="out-cost" style="font-size: 1.45rem; color: #fca5a5;">₹ 1,07,500</div>
+                            </div>
+                            <div class="calc-kpi">
+                                <div class="calc-kpi-title">Gross Revenue</div>
+                                <div class="calc-kpi-val" id="out-revenue" style="font-size: 1.45rem;">₹ 2,26,625</div>
+                            </div>
+                            <div class="calc-kpi">
+                                <div class="calc-kpi-title">Return on Investment</div>
+                                <div class="calc-kpi-val" id="out-roi" style="font-size: 1.45rem; color: #38bdf8;">110.8%</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-top: 1.5rem; font-size: 0.85rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                            <span>Projected Net Profit Margin: <strong id="out-margin" style="color: #ffffff;">52.6%</strong></span>
+                            <span>Direct Settlement: <strong style="color: #4ade80;">100% Guaranteed</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Action Box to lock this yield in contract -->
+                    <div class="card" style="margin-top: 1.5rem; border-left: 4px solid var(--accent);">
+                        <h4>Lock in this Revenue with a Pre-Harvest Tender</h4>
+                        <p class="text-muted" style="font-size: 0.875rem; margin-bottom: 1rem;">
+                            Don't leave your harvest price to unpredictable spot mandi fluctuations. Apply for an active procurement contract matching your crop today.
+                        </p>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <a href="contracts.html" class="btn btn-accent btn-sm">Find Matching Contracts</a>
+                            <a href="register.html" class="btn btn-secondary btn-sm">Register as Farmer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding-top: 0;">
+                <div>&copy; 2026 AgriConnect. Smart Contract Farming & Agritech Management Portal.</div>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="index.html">Home</a> •
+                    <a href="contracts.html">Tenders</a> •
+                    <a href="register.html">Register</a> •
+                    <a href="../auth/login.php">Portal Sign In</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Client-Side Estimator Engine -->
+    <script src="../js/estimator.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.getElementById('mobileToggle');
+            const menu = document.getElementById('navMenu');
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => menu.classList.toggle('is-active'));
+            }
+        });
+    </script>
+</body>
+</html>

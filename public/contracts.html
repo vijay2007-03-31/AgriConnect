@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse live institutional contract farming procurement tenders posted by verified agribusinesses on AgriConnect. Filter by crop, location, and offered prices.">
+    <title>Procurement Tenders & Contracts — AgriConnect</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Modern Stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+    <!-- MSP Ticker Bar -->
+    <div class="msp-ticker-wrapper">
+        <div class="container-wide msp-ticker-container">
+            <span class="msp-badge">Official MSP 2026</span>
+            <div class="msp-ticker-track">
+                <div class="msp-item"><span class="crop-title">🌾 Sharbati Wheat:</span> <span class="price">₹2,450 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🍚 Pusa 1121 Basmati:</span> <span class="price">₹4,150 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🥥 Pollachi Coconut:</span> <span class="price">₹3,850 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🧅 Nashik Red Onion:</span> <span class="price">₹2,600 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌱 Shankar-6 Cotton:</span> <span class="price">₹7,200 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🫘 Yellow Soybean:</span> <span class="price">₹4,800 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌽 Hybrid Maize:</span> <span class="price">₹2,090 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌼 Mustard Seed:</span> <span class="price">₹5,650 / Qtl</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container navbar">
+            <a href="index.html" class="brand-logo">
+                <div class="brand-icon">🌱</div>
+                <span>AgriConnect</span>
+                <span class="brand-tag">Stage 1</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="contracts.html" class="nav-link active">Procurement Tenders</a></li>
+                <li><a href="estimator.html" class="nav-link">Yield & Profit Calculator</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+                <li class="nav-actions-mobile">
+                    <a href="../auth/login.php" class="btn btn-secondary btn-block">Sign In</a>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="../auth/login.php" class="btn btn-secondary btn-sm">Sign In</a>
+                <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container">
+            <!-- Header Title -->
+            <div style="margin-bottom: 2rem;">
+                <span class="crop-tag">Open Demands</span>
+                <h1 style="margin-top: 0.5rem; margin-bottom: 0.5rem;">Corporate Procurement Tenders</h1>
+                <p class="text-muted">
+                    Explore pre-harvest demand listings published directly by verified corporate buyers, mills, and FMCG processors.
+                </p>
+            </div>
+
+            <!-- Search, Category Filter, and Sorting Controls -->
+            <div class="card" style="margin-bottom: 2rem; padding: 1.25rem;">
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: center;" id="filter-bar">
+                    <!-- Search Input -->
+                    <div>
+                        <input type="text" id="contract-search" class="form-control" placeholder="🔍 Search crop name, variety, buyer, or delivery location...">
+                    </div>
+
+                    <!-- Category Dropdown -->
+                    <div>
+                        <select id="contract-category" class="form-control">
+                            <option value="all">All Crop Categories</option>
+                            <option value="cereals">Cereals & Grains</option>
+                            <option value="cash-crops">Cash Crops & Fibers</option>
+                            <option value="oilseeds">Oilseeds & Pulses</option>
+                            <option value="plantation">Plantation (Coconut)</option>
+                            <option value="vegetables">Vegetables (Onion)</option>
+                        </select>
+                    </div>
+
+                    <!-- Sort Order Dropdown -->
+                    <div>
+                        <select id="contract-sort" class="form-control">
+                            <option value="default">Sort by: Default</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="qty-desc">Required Volume: High to Low</option>
+                            <option value="qty-asc">Required Volume: Low to High</option>
+                        </select>
+                    </div>
+
+                    <!-- Reset Filter Button -->
+                    <div>
+                        <button type="button" class="btn btn-secondary" id="filter-reset-btn" title="Reset Filters">Reset</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.85rem;">
+                    <span class="badge badge-open" id="contract-count-badge">Showing 8 of 8 Tenders</span>
+                    <span class="text-muted">⚡ Live client-side indexing powered by <code>filter.js</code></span>
+                </div>
+            </div>
+
+            <!-- Contracts Card Grid -->
+            <div class="grid grid-3" id="contracts-grid">
+                <!-- Contract 1 -->
+                <div class="contract-card" 
+                     data-crop="wheat" 
+                     data-category="cereals" 
+                     data-price="2450" 
+                     data-quantity="500" 
+                     data-location="ludhiana punjab" 
+                     data-buyer="itc agri-business">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Cereals</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Wheat (Sharbati A-Grade)</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹2,450 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">500 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">ITC Agri-Business</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Khanna Terminal, Ludhiana (PB)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">15 Dec 2026</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Moisture content threshold must remain strictly below 12%. Protein minimum 11.5%. Inspection at Khanna depot.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Wheat (Sharbati A-Grade)" 
+                            data-price="₹2,450 / Qtl" 
+                            data-buyer="ITC Agri-Business" 
+                            data-demand-id="1">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+
+                <!-- Contract 2 -->
+                <div class="contract-card" 
+                     data-crop="rice" 
+                     data-category="cereals" 
+                     data-price="4150" 
+                     data-quantity="800" 
+                     data-location="karnal haryana" 
+                     data-buyer="kisan fresh logistics">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Cereals</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Pusa 1121 Basmati Rice</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹4,150 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">800 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">Kisan Fresh Logistics</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Karnal Export Logistics Hub (HR)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">30 Nov 2026</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Average uncooked grain length must exceed 8.35 mm. Free from pesticide residue exceeding EU export tolerances.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Pusa 1121 Basmati Rice" 
+                            data-price="₹4,150 / Qtl" 
+                            data-buyer="Kisan Fresh Logistics" 
+                            data-demand-id="2">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+
+                <!-- Contract 3 -->
+                <div class="contract-card" 
+                     data-crop="cotton" 
+                     data-category="cash-crops" 
+                     data-price="7200" 
+                     data-quantity="350" 
+                     data-location="rajkot gujarat" 
+                     data-buyer="gujarat agro-textiles">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Cash Crops</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Shankar-6 Organic Cotton</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹7,200 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">350 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">Gujarat Agro-Textiles</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Rajkot Agro Industrial Park (GJ)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">20 Dec 2026</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Staple length 28-29mm, Micronaire 3.5 to 4.2. GOTS Organic certification preferred; conventional accepted at base price.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Shankar-6 Organic Cotton" 
+                            data-price="₹7,200 / Qtl" 
+                            data-buyer="Gujarat Agro-Textiles" 
+                            data-demand-id="3">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+
+                <!-- Contract 4 -->
+                <div class="contract-card" 
+                     data-crop="soybean" 
+                     data-category="oilseeds" 
+                     data-price="4800" 
+                     data-quantity="600" 
+                     data-location="indore madhya pradesh" 
+                     data-buyer="kisan fresh logistics">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Oilseeds</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Yellow Soybeans (JS-335)</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹4,800 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">600 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">Kisan Fresh Logistics</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Indore Agromart Mandi (MP)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">10 Jan 2027</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Oil content minimum 18.5%, moisture max 10%. Non-GMO test certificate required at offloading terminal.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Yellow Soybeans (JS-335)" 
+                            data-price="₹4,800 / Qtl" 
+                            data-buyer="Kisan Fresh Logistics" 
+                            data-demand-id="4">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+
+                <!-- Contract 5 -->
+                <div class="contract-card" 
+                     data-crop="maize" 
+                     data-category="cereals" 
+                     data-price="2150" 
+                     data-quantity="450" 
+                     data-location="davangere karnataka" 
+                     data-buyer="cargill animal nutrition">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Cereals</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Hybrid Yellow Maize</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹2,150 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">450 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">Cargill Animal Nutrition</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Davangere Feed Mill (KA)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">05 Dec 2026</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Aflatoxin below 20 ppb. Moisture 13% maximum. Premium bonus for whole sound grains with zero fungal infestation.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Hybrid Yellow Maize" 
+                            data-price="₹2,150 / Qtl" 
+                            data-buyer="Cargill Animal Nutrition" 
+                            data-demand-id="5">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+
+                <!-- Contract 6 -->
+                <div class="contract-card" 
+                     data-crop="mustard" 
+                     data-category="oilseeds" 
+                     data-price="5850" 
+                     data-quantity="250" 
+                     data-location="bharatpur rajasthan" 
+                     data-buyer="adani wilmar edible oils">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Oilseeds</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Mustard Seed (Pusa Bold)</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹5,850 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">250 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">Adani Wilmar Edible Oils</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Bharatpur Terminal (RJ)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">28 Feb 2027</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Oil content threshold strictly 40%+. Moisture below 8%. Pre-harvest contracts offer guaranteed buyback assurance.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Mustard Seed (Pusa Bold)" 
+                            data-price="₹5,850 / Qtl" 
+                            data-buyer="Adani Wilmar Edible Oils" 
+                            data-demand-id="6">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+
+                <!-- Contract 7 -->
+                <div class="contract-card" 
+                     data-crop="coconut" 
+                     data-category="plantation" 
+                     data-price="3850" 
+                     data-quantity="1200" 
+                     data-location="pollachi coimbatore tamil nadu" 
+                     data-buyer="itc agri-business">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Plantation</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Coconut (Pollachi De-Husked Grade 1)</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹3,850 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">1,200 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">ITC Agri-Business</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Pollachi Agro Processing Hub (TN)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">25 Dec 2026</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            De-husked, mature coconut nuts weighing 550g+ minimum. Copra oil content 65%+. Year-round delivery batches accepted.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Coconut (Pollachi De-Husked Grade 1)" 
+                            data-price="₹3,850 / Qtl" 
+                            data-buyer="ITC Agri-Business" 
+                            data-demand-id="7">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+
+                <!-- Contract 8 -->
+                <div class="contract-card" 
+                     data-crop="onion" 
+                     data-category="vegetables" 
+                     data-price="2600" 
+                     data-quantity="750" 
+                     data-location="lasalgaon nashik maharashtra" 
+                     data-buyer="kisan fresh logistics">
+                    <div>
+                        <div class="contract-header">
+                            <div>
+                                <span class="crop-tag">Vegetables</span>
+                                <h3 class="crop-title" style="margin-top: 0.35rem;">Red Onion (Lasalgaon A-Grade)</h3>
+                            </div>
+                            <span class="badge badge-open">Open</span>
+                        </div>
+                        <div class="contract-price">₹2,600 <span>/ Quintal</span></div>
+                        <div class="contract-meta">
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Required Volume</span>
+                                <span class="meta-value">750 Quintals</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Corporate Buyer</span>
+                                <span class="meta-value meta-buyer">Kisan Fresh Logistics</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Delivery Hub</span>
+                                <span class="meta-value meta-location">Lasalgaon Mandi Terminal (MH)</span>
+                            </div>
+                            <div class="contract-meta-item">
+                                <span class="meta-label">Submission Deadline</span>
+                                <span class="meta-value">28 Nov 2026</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Medium-to-large size (45mm - 60mm diameter). Firm outer bulb skin, properly cured and dry, zero black mold.
+                        </p>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block btn-apply-modal" 
+                            data-title="Red Onion (Lasalgaon A-Grade)" 
+                            data-price="₹2,600 / Qtl" 
+                            data-buyer="Kisan Fresh Logistics" 
+                            data-demand-id="8">
+                        Apply for Contract Bid
+                    </button>
+                </div>
+            </div>
+
+            <!-- Empty State Display -->
+            <div id="contracts-empty-state" style="display: none; text-align: center; padding: 4rem 1rem;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                <h3>No Matching Procurement Tenders Found</h3>
+                <p class="text-muted" style="max-width: 480px; margin: 0 auto 1.5rem auto;">
+                    We couldn't find any contracts matching your search filters. Try clearing keywords or resetting category filters.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: Contract Application Modal (Stage 1 Simulation) -->
+    <div class="modal-backdrop" id="bidModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalCropTitle" style="margin: 0; font-size: 1.25rem;">Apply for Contract</h3>
+                    <span id="modalBuyerSubtitle" style="font-size: 0.825rem; color: var(--text-muted);">Buyer Company</span>
+                </div>
+                <button type="button" class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <form id="stage1BidForm" data-validate="true">
+                <div class="modal-body">
+                    <div id="modalNotice" class="alert alert-info" style="font-size: 0.825rem; margin-bottom: 1rem;">
+                        <span>ℹ️</span>
+                        <div><strong>Stage 1 Client-Side Simulation:</strong> Submitting this form tests client validation. For verified database persistence, sign in to our Stage 2 PHP Portal.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Offered Contract Price</label>
+                        <input type="text" id="modalPriceField" class="form-control" readonly style="background: var(--bg-alt); font-weight: 700; color: var(--primary);">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="modal_farmer_name">Farmer / Farm Name <span class="required">*</span></label>
+                        <input type="text" id="modal_farmer_name" name="farmer_name" class="form-control" placeholder="e.g. Ramesh Patel" required>
+                    </div>
+
+                    <div class="grid grid-2" style="gap: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label" for="modal_phone">Contact Phone <span class="required">*</span></label>
+                            <input type="tel" id="modal_phone" name="farmer_phone" class="form-control" placeholder="10-digit mobile" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="modal_quantity">Committed Quintals <span class="required">*</span></label>
+                            <input type="number" id="modal_quantity" name="proposed_quantity" class="form-control" placeholder="e.g. 150" min="10" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="modal_notes">Quality & Harvest Details</label>
+                        <textarea id="modal_notes" name="bid_notes" class="form-control" rows="3" placeholder="Describe expected moisture level, farm survey number, or organic certifications..."></textarea>
+                    </div>
+
+                    <div id="modalSuccessAlert" class="alert alert-success" style="display: none; margin-top: 1rem;">
+                        <span>✅</span>
+                        <div><strong>Bid Recorded Successfully!</strong> Application saved in client storage. Log in to Stage 2 for full database synchronization.</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="modalCancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="modalSubmitBtn">Submit Contract Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding-top: 0;">
+                <div>&copy; 2026 AgriConnect. Smart Contract Farming & Agritech Management Portal.</div>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="index.html">Home</a> •
+                    <a href="estimator.html">Yield Calculator</a> •
+                    <a href="register.html">Register</a> •
+                    <a href="../auth/login.php">Portal Sign In</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Filter and Validation Script Engines -->
+    <script src="../js/filter.js"></script>
+    <script src="../js/validation.js"></script>
+    <script>
+        // Modal Interaction Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('bidModal');
+            const closeBtn = document.getElementById('modalCloseBtn');
+            const cancelBtn = document.getElementById('modalCancelBtn');
+            const cropTitle = document.getElementById('modalCropTitle');
+            const buyerSubtitle = document.getElementById('modalBuyerSubtitle');
+            const priceField = document.getElementById('modalPriceField');
+            const form = document.getElementById('stage1BidForm');
+            const successAlert = document.getElementById('modalSuccessAlert');
+            const mobileToggle = document.getElementById('mobileToggle');
+            const navMenu = document.getElementById('navMenu');
+
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', () => navMenu.classList.toggle('is-active'));
+            }
+
+            // Open Modal Handler
+            document.querySelectorAll('.btn-apply-modal').forEach(button => {
+                button.addEventListener('click', () => {
+                    cropTitle.textContent = `Apply for ${button.dataset.title}`;
+                    buyerSubtitle.textContent = `Buyer: ${button.dataset.buyer}`;
+                    priceField.value = button.dataset.price;
+                    successAlert.style.display = 'none';
+                    form.reset();
+                    modal.classList.add('is-open');
+                });
+            });
+
+            const closeModal = () => modal.classList.remove('is-open');
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+            if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+            // Close on backdrop click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+
+            // Stage 1 simulated submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                successAlert.style.display = 'flex';
+                setTimeout(() => {
+                    closeModal();
+                }, 2200);
+            });
+        });
+    </script>
+</body>
+</html>

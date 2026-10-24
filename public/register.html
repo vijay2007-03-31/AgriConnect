@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register as a Farmer or Corporate Buyer on AgriConnect. Secure contract farming agreements, verified land surveys, and direct market procurement.">
+    <title>Registration — AgriConnect</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Modern Stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .role-tab-btn {
+            flex: 1;
+            padding: 0.85rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: #ffffff;
+            transition: all var(--transition-fast);
+        }
+        .role-tab-btn.active {
+            border-color: var(--primary);
+            background: var(--primary-subtle);
+            color: var(--primary);
+        }
+        .step-panel {
+            display: none;
+        }
+        .step-panel.active {
+            display: block;
+            animation: fadeIn 250ms ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MSP Ticker Bar -->
+    <div class="msp-ticker-wrapper">
+        <div class="container-wide msp-ticker-container">
+            <span class="msp-badge">Official MSP 2026</span>
+            <div class="msp-ticker-track">
+                <div class="msp-item"><span class="crop-title">🌾 Sharbati Wheat:</span> <span class="price">₹2,450 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🍚 Pusa 1121 Basmati:</span> <span class="price">₹4,150 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🌱 Shankar-6 Cotton:</span> <span class="price">₹7,200 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🥥 Pollachi Coconut:</span> <span class="price">₹3,850 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🧅 Nashik Red Onion:</span> <span class="price">₹2,600 / Qtl</span></div>
+                <div class="msp-item"><span class="crop-title">🫘 Yellow Soybean:</span> <span class="price">₹4,800 / Qtl</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container navbar">
+            <a href="index.html" class="brand-logo">
+                <div class="brand-icon">🌱</div>
+                <span>AgriConnect</span>
+                <span class="brand-tag">Stage 1</span>
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="contracts.html" class="nav-link">Procurement Tenders</a></li>
+                <li><a href="estimator.html" class="nav-link">Yield & Profit Calculator</a></li>
+                <li><a href="register.html" class="nav-link active">Register</a></li>
+                <li class="nav-actions-mobile">
+                    <a href="../auth/login.php" class="btn btn-secondary btn-block">Sign In</a>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="../auth/login.php" class="btn btn-secondary btn-sm">Sign In</a>
+            </div>
+
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="section">
+        <div class="container container-narrow">
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <span class="crop-tag">Onboarding Portal</span>
+                <h1 style="margin-top: 0.5rem; margin-bottom: 0.5rem;">Create Your AgriConnect Account</h1>
+                <p class="text-muted">Join thousands of cultivators and institutional buyers benefiting from pre-harvest contract farming.</p>
+            </div>
+
+            <div class="card" style="padding: 2.25rem;">
+                <!-- Role Selector Tabs -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <button type="button" class="role-tab-btn active" id="tabFarmer" data-role="farmer">
+                        👨‍🌾 Farmer / Cultivator
+                    </button>
+                    <button type="button" class="role-tab-btn" id="tabBuyer" data-role="buyer">
+                        🏢 Corporate Agribusiness Buyer
+                    </button>
+                </div>
+
+                <!-- Form Stepper Indicators -->
+                <div class="form-stepper">
+                    <div class="step-item active" id="stepIndicator1">
+                        <div class="step-number">1</div>
+                        <span>Account Credentials</span>
+                    </div>
+                    <div class="step-divider"></div>
+                    <div class="step-item" id="stepIndicator2">
+                        <div class="step-number">2</div>
+                        <span id="step2Label">Farm & Land Verification</span>
+                    </div>
+                </div>
+
+                <!-- Registration Form with Live Validation -->
+                <form id="registrationForm" data-validate="true" action="../auth/register.php" method="POST">
+                    <input type="hidden" name="role" id="selectedRole" value="farmer">
+
+                    <!-- STEP 1: Account Credentials -->
+                    <div class="step-panel active" id="step1Panel">
+                        <div class="form-group">
+                            <label class="form-label" for="full_name" id="nameLabel">Full Legal Name <span class="required">*</span></label>
+                            <input type="text" id="full_name" name="name" class="form-control" placeholder="e.g. Ramesh Patel" required>
+                        </div>
+
+                        <div class="grid grid-2" style="gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="name@domain.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Mobile Phone (10-Digit) <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" class="form-control" placeholder="9876543210" required>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-2" style="gap: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="password">Create Password <span class="required">*</span></label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Minimum 8 characters" required>
+                                <div class="password-meter">
+                                    <div class="password-meter-fill" id="password-meter-fill"></div>
+                                </div>
+                                <span class="input-hint" id="password-meter-text">Must contain at least 1 digit and 1 special symbol.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="confirm_password">Confirm Password <span class="required">*</span></label>
+                                <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Re-type password" required>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+                            <button type="button" class="btn btn-primary btn-lg" id="btnNextStep">
+                                Proceed to Verification Details &rarr;
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Farmer & Buyer Role-Specific Details -->
+                    <div class="step-panel" id="step2Panel">
+                        <!-- Farmer Specific Profile Fields -->
+                        <div id="farmerFields">
+                            <div class="grid grid-2" style="gap: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label" for="land_acres">Total Farm Area (Acres) <span class="required">*</span></label>
+                                    <input type="number" id="land_acres" name="land_acres" class="form-control" placeholder="e.g. 8.5" step="0.1" min="0.1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="soil_type">Predominant Soil Type <span class="required">*</span></label>
+                                    <select id="soil_type" name="soil_type" class="form-control">
+                                        <option value="Alluvial Black Soil">Alluvial Black Soil</option>
+                                        <option value="Red Sandy Loam">Red Sandy Loam</option>
+                                        <option value="Clayey Loam">Clayey Loam</option>
+                                        <option value="Silty Alluvium">Silty Alluvium</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="survey_number">Revenue Land Survey / Khasra Number <span class="required">*</span></label>
+                                <input type="text" id="survey_number" name="survey_number" class="form-control" placeholder="e.g. SY-4021/B">
+                            </div>
+
+                            <div class="grid grid-2" style="gap: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label" for="state">State <span class="required">*</span></label>
+                                    <input type="text" id="state" name="state" class="form-control" placeholder="e.g. Punjab">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="district">District <span class="required">*</span></label>
+                                    <input type="text" id="district" name="district" class="form-control" placeholder="e.g. Ludhiana">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buyer Specific Profile Fields -->
+                        <div id="buyerFields" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label" for="company_name">Company / FMCG Brand Name <span class="required">*</span></label>
+                                <input type="text" id="company_name" name="company_name" class="form-control" placeholder="e.g. ITC Agri-Business Foods Pvt Ltd">
+                            </div>
+
+                            <div class="grid grid-2" style="gap: 1rem;">
+                                <div class="form-group">
+                                    <label class="form-label" for="gstin">Corporate GSTIN / CIN <span class="required">*</span></label>
+                                    <input type="text" id="gstin" name="gstin" class="form-control" placeholder="e.g. 07AAAAA0000A1Z5">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="procurement_hub">Primary Logistics Mandi <span class="required">*</span></label>
+                                    <input type="text" id="procurement_hub" name="procurement_hub" class="form-control" placeholder="e.g. Khanna Grain Terminal">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info" style="margin-top: 1.5rem; font-size: 0.825rem;">
+                            <span>🔒</span>
+                            <div><strong>Direct Backend Persistence:</strong> Submitting will post directly to our Stage 2 PDO registration handler with automatic role-based session assignment.</div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; margin-top: 2rem;">
+                            <button type="button" class="btn btn-secondary" id="btnPrevStep">&larr; Back to Credentials</button>
+                            <button type="submit" class="btn btn-primary btn-lg" id="btnSubmitForm">Complete Registration</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div style="text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.9rem;">
+                    Already have an AgriConnect account? <a href="../auth/login.php" style="font-weight: 700;">Sign in to your portal &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding-top: 0;">
+                <div>&copy; 2026 AgriConnect. Smart Contract Farming & Agritech Management Portal.</div>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="index.html">Home</a> •
+                    <a href="contracts.html">Tenders</a> •
+                    <a href="estimator.html">Yield Calculator</a> •
+                    <a href="../auth/login.php">Portal Sign In</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Validation Engine Script -->
+    <script src="../js/validation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabFarmer = document.getElementById('tabFarmer');
+            const tabBuyer = document.getElementById('tabBuyer');
+            const selectedRole = document.getElementById('selectedRole');
+            const nameLabel = document.getElementById('nameLabel');
+            const step2Label = document.getElementById('step2Label');
+            const farmerFields = document.getElementById('farmerFields');
+            const buyerFields = document.getElementById('buyerFields');
+            const landAcresInput = document.getElementById('land_acres');
+
+            // Role Tab Switching
+            tabFarmer.addEventListener('click', () => {
+                tabFarmer.classList.add('active');
+                tabBuyer.classList.remove('active');
+                selectedRole.value = 'farmer';
+                nameLabel.innerHTML = 'Full Legal Name <span class="required">*</span>';
+                step2Label.textContent = 'Farm & Land Verification';
+                farmerFields.style.display = 'block';
+                buyerFields.style.display = 'none';
+                if (landAcresInput) landAcresInput.setAttribute('required', 'required');
+            });
+
+            tabBuyer.addEventListener('click', () => {
+                tabBuyer.classList.add('active');
+                tabFarmer.classList.remove('active');
+                selectedRole.value = 'buyer';
+                nameLabel.innerHTML = 'Corporate Representative Name <span class="required">*</span>';
+                step2Label.textContent = 'Corporate & Mandi Verification';
+                farmerFields.style.display = 'none';
+                buyerFields.style.display = 'block';
+                if (landAcresInput) landAcresInput.removeAttribute('required');
+            });
+
+            // Step Navigation
+            const step1Panel = document.getElementById('step1Panel');
+            const step2Panel = document.getElementById('step2Panel');
+            const stepInd1 = document.getElementById('stepIndicator1');
+            const stepInd2 = document.getElementById('stepIndicator2');
+            const btnNext = document.getElementById('btnNextStep');
+            const btnPrev = document.getElementById('btnPrevStep');
+
+            btnNext.addEventListener('click', () => {
+                // Validate Step 1 Inputs First
+                const step1Inputs = step1Panel.querySelectorAll('input');
+                let valid = true;
+                const validator = new FormValidator('#registrationForm');
+                
+                step1Inputs.forEach(input => {
+                    if (!validator.validateField(input, true)) {
+                        valid = false;
+                    }
+                });
+
+                const pwd = document.getElementById('password');
+                const confirm = document.getElementById('confirm_password');
+                if (pwd && confirm && pwd.value !== confirm.value) {
+                    validator.showError(confirm, 'Passwords do not match.');
+                    valid = false;
+                }
+
+                if (valid) {
+                    step1Panel.classList.remove('active');
+                    step2Panel.classList.add('active');
+                    stepInd1.classList.remove('active');
+                    stepInd2.classList.add('active');
+                    window.scrollTo({ top: 100, behavior: 'smooth' });
+                }
+            });
+
+            btnPrev.addEventListener('click', () => {
+                step2Panel.classList.remove('active');
+                step1Panel.classList.add('active');
+                stepInd2.classList.remove('active');
+                stepInd1.classList.add('active');
+                window.scrollTo({ top: 100, behavior: 'smooth' });
+            });
+
+            // Mobile menu toggle
+            const toggle = document.getElementById('mobileToggle');
+            const menu = document.getElementById('navMenu');
+            if (toggle && menu) {
+                toggle.addEventListener('click', () => menu.classList.toggle('is-active'));
+            }
+        });
+    </script>
+</body>
+</html>
